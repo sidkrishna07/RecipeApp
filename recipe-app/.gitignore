@@ -1,0 +1,34 @@
+# Node.js dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Python virtual environment
+/venv
+
+# Testing coverage reports
+/coverage
+
+# Production build
+/build
+
+# OS-specific and miscellaneous files
+.DS_Store
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python cache and logs
+*.pyc
+*.pyo
+__pycache__/
+*.log
