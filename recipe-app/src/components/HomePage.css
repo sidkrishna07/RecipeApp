@@ -9,14 +9,15 @@ body {
 /* Navigation Bar */
 .navbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start; /* Align items to the left, making them closer */
   align-items: center;
   background-color: #2d3436;
-  padding: 1rem 2rem;
+  padding: 1rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   position: sticky;
   top: 0;
   z-index: 10;
+  width: 100%; /* Make the navbar fill the screen width */
 }
 
 /* Nav Buttons */
@@ -27,28 +28,26 @@ body {
   color: white;
   font-size: 1rem;
   padding: 0.6rem 1.2rem;
-  margin: 0 0.5rem;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  margin-right: 0.2rem; /* Even smaller gap between buttons */
 }
 
+/* Add unique borders to buttons for colors */
 .nav-item:nth-child(1) {
-  border-color: #e17055;
+  border-color: #e17055; /* Orange */
 }
 .nav-item:nth-child(2) {
-  border-color: #74b9ff;
+  border-color: #74b9ff; /* Light Blue */
 }
 .nav-item:nth-child(3) {
-  border-color: #00cec9;
+  border-color: #00cec9; /* Teal */
 }
 .nav-item:nth-child(4) {
-  border-color: #fdcb6e;
+  border-color: #fdcb6e; /* Yellow */
 }
 .nav-item:nth-child(5) {
-  border-color: #d63031;
-}
-.nav-item:nth-child(6) {
-  border-color: #6c5ce7;
+  border-color: #6c5ce7; /* Purple */
 }
 
 .nav-item:hover {
@@ -77,13 +76,13 @@ body {
 .home-header h1 {
   font-size: 3rem;
   font-weight: bold;
-  color: #dfe6e9;  /* light color */
+  color: #dfe6e9; /* light color */
   margin-bottom: 0.5rem;
 }
 
 .home-header p {
   font-size: 1.2rem;
-  color: #b2bec3;  /* light gray color */
+  color: #b2bec3; /* light gray color */
   margin: 0;
 }
 
@@ -144,4 +143,4 @@ body {
 
 .recipe-box.snack {
   background: linear-gradient(135deg, #d63031, #fab1a0);
-}
+};

@@ -10,34 +10,33 @@ const HomePage = () => {
         <button className="nav-item">My Recipes</button>
         <button className="nav-item">Home</button>
         <button className="nav-item">Add Recipe</button>
-        <button className="nav-item">Search BAR</button>
         <button className="nav-item">Sign Out</button>
       </div>
 
-      {/* Main Content */}
+      {/* Home Page Content */}
       <div className="home-container">
         <div className="home-header">
           <h1>Welcome to the Recipe Sharing App!</h1>
           <p>Explore, share, and create amazing recipes with ease.</p>
         </div>
 
-        {/* Recipe Sections */}
         <div className="recipe-section">
+          {/* Example Recipe Boxes */}
           <div className="recipe-box breakfast">
             <h3>Breakfast</h3>
-            <p>Fuel your morning with energy and flavor!</p>
+            <p>Start your day with energy!</p>
           </div>
           <div className="recipe-box lunch">
             <h3>Lunch</h3>
-            <p>Perfect meals to power through your day.</p>
+            <p>Midday meals made delicious.</p>
           </div>
           <div className="recipe-box dinner">
             <h3>Dinner</h3>
-            <p>Relax and enjoy hearty, delicious recipes.</p>
+            <p>Evening delights for the family.</p>
           </div>
           <div className="recipe-box snack">
             <h3>Snack</h3>
-            <p>Treat yourself with something delightful!</p>
+            <p>Perfect bites for any time.</p>
           </div>
         </div>
       </div>
