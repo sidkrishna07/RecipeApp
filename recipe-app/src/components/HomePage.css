@@ -1,21 +1,84 @@
 /* HomePage.css */
 .home-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f8f9fa;
-    text-align: center;
-    color: #333;
-  }
-  
-  .home-container h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  .home-container p {
-    font-size: 1.2rem;
-    color: #555;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fefefe;
+  padding: 2rem;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+.home-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.home-header h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.home-header p {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  margin: 0;
+}
+
+.recipe-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.recipe-box {
+  background: linear-gradient(135deg, #ffdd59, #ff4757);
+  border-radius: 12px;
+  padding: 1rem;
+  width: 300px;
+  height: 150px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recipe-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.recipe-box h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.recipe-box p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.recipe-box.breakfast {
+  background: linear-gradient(135deg, #ff9ff3, #feca57);
+}
+
+.recipe-box.lunch {
+  background: linear-gradient(135deg, #1dd1a1, #48dbfb);
+}
+
+.recipe-box.dinner {
+  background: linear-gradient(135deg, #5f27cd, #10ac84);
+}
+
+.recipe-box.snack {
+  background: linear-gradient(135deg, #f368e0, #ff6b6b);
+}
+
