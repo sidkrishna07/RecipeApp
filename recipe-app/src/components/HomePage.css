@@ -1,0 +1,21 @@
+/* HomePage.css */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+    text-align: center;
+    color: #333;
+  }
+  
+  .home-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .home-container p {
+    font-size: 1.2rem;
+    color: #555;
+  }

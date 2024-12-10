@@ -1,23 +1,42 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import RecipeForm from './components/RecipeForm';
-import RecipeList from './components/RecipeList';
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import LoginForm from "./components/LoginForm";
+import HomePage from "./components/HomePage";
 
 function App() {
-  const [recipes, setRecipes] = useState([]);
+  const [token, setToken] = useState(localStorage.getItem("token") || null);
 
-  const addRecipe = (recipe) => {
-    setRecipes([...recipes, { ...recipe, id: recipes.length + 1 }]);
+  // Check token on app load
+  useEffect(() => {
+    if (!token) {
+      localStorage.removeItem("token");
+    }
+  }, [token]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setToken(null);
   };
 
   return (
     <Router>
-      <Navbar />
+      {token && <Navbar onLogout={handleLogout} />}
       <Routes>
-        <Route path="/" element={<h1>Welcome to the Recipe Sharing App</h1>} />
-        <Route path="/add-recipe" element={<RecipeForm addRecipe={addRecipe} />} />
-        <Route path="/recipes" element={<RecipeList recipes={recipes} />} />
+        <Route
+          path="/"
+          element={token ? <HomePage /> : <Navigate replace to="/login" />}
+        />
+        <Route
+          path="/login"
+          element={
+            token ? (
+              <Navigate replace to="/" />
+            ) : (
+              <LoginForm onLoginSuccess={(newToken) => setToken(newToken)} />
+            )
+          }
+        />
       </Routes>
     </Router>
   );

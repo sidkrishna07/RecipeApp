@@ -15,7 +15,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
-CORS(app)  # Enable cross-origin requests
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 # Models
 class User(db.Model):
@@ -31,12 +31,6 @@ class Recipe(db.Model):
     ingredients = db.Column(db.Text, nullable=False)
     steps = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    ratings = db.relationship('Rating', backref='recipe', lazy=True)
-
-class Rating(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id'), nullable=False)
-    score = db.Column(db.Integer, nullable=False)
 
 # Routes
 @app.route('/register', methods=['POST'])
@@ -45,13 +39,17 @@ def register():
     if not data or 'username' not in data or 'password' not in data:
         return jsonify({"message": "Invalid input"}), 400
 
+    if User.query.filter_by(username=data['username']).first():
+        return jsonify({"message": "Username already taken"}), 400
+
     hashed_pw = bcrypt.generate_password_hash(data['password']).decode('utf-8')
     user = User(username=data['username'], password=hashed_pw)
 
     try:
         db.session.add(user)
         db.session.commit()
-        return jsonify({"message": "User registered successfully!"}), 201
+        token = create_access_token(identity=user.id, expires_delta=timedelta(hours=1))
+        return jsonify({"message": "User registered successfully!", "token": token}), 201
     except Exception as e:
         db.session.rollback()
         return jsonify({"message": "Registration failed", "error": str(e)}), 500
@@ -65,7 +63,7 @@ def login():
     user = User.query.filter_by(username=data['username']).first()
     if user and bcrypt.check_password_hash(user.password, data['password']):
         token = create_access_token(identity=user.id, expires_delta=timedelta(hours=1))
-        return jsonify({"token": token}), 200
+        return jsonify({"message": "Login successful!", "token": token}), 200
 
     return jsonify({"message": "Invalid credentials"}), 401
 
@@ -73,11 +71,10 @@ def login():
 @jwt_required()
 def recipes():
     user_id = get_jwt_identity()
-
     if request.method == 'POST':
         data = request.get_json()
-        if not data or 'title' not in data or 'category' not in data or 'ingredients' not in data or 'steps' not in data:
-            return jsonify({"message": "Invalid input"}), 400
+        if not all(k in data for k in ('title', 'category', 'ingredients', 'steps')):
+            return jsonify({"message": "Missing recipe details"}), 400
 
         recipe = Recipe(
             title=data['title'],
@@ -95,41 +92,6 @@ def recipes():
             db.session.rollback()
             return jsonify({"message": "Failed to add recipe", "error": str(e)}), 500
 
-    recipes = Recipe.query.all()
-    return jsonify([{
-        "id": r.id,
-        "title": r.title,
-        "category": r.category,
-        "ingredients": r.ingredients,
-        "steps": r.steps,
-        "user_id": r.user_id
-    } for r in recipes]), 200
-
-@app.route('/rate/<int:recipe_id>', methods=['POST'])
-@jwt_required()
-def rate_recipe(recipe_id):
-    data = request.get_json()
-    if not data or 'score' not in data or not (1 <= data['score'] <= 5):
-        return jsonify({"message": "Invalid input"}), 400
-
-    recipe = Recipe.query.get(recipe_id)
-    if not recipe:
-        return jsonify({"message": "Recipe not found"}), 404
-
-    rating = Rating(recipe_id=recipe_id, score=data['score'])
-
-    try:
-        db.session.add(rating)
-        db.session.commit()
-        return jsonify({"message": "Rating added successfully!"}), 201
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({"message": "Failed to add rating", "error": str(e)}), 500
-
-@app.route('/user-recipes', methods=['GET'])
-@jwt_required()
-def user_recipes():
-    user_id = get_jwt_identity()
     recipes = Recipe.query.filter_by(user_id=user_id).all()
     return jsonify([{
         "id": r.id,
@@ -139,10 +101,15 @@ def user_recipes():
         "steps": r.steps
     } for r in recipes]), 200
 
+# Handle root access (optional)
+@app.route('/', methods=['GET'])
+def root():
+    return jsonify({"message": "Flask API is running!"}), 200
+
 # Initialize database
 with app.app_context():
     db.create_all()
 
 # Run the app
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5001)
