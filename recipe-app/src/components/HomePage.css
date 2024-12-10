@@ -1,4 +1,4 @@
-/* HomePage.css */
+/* Body */
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -6,6 +6,58 @@ body {
   color: white;
 }
 
+/* Navigation Bar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2d3436;
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Nav Buttons */
+.nav-item {
+  background: none;
+  border: 3px solid transparent;
+  border-radius: 12px;
+  color: white;
+  font-size: 1rem;
+  padding: 0.6rem 1.2rem;
+  margin: 0 0.5rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.nav-item:nth-child(1) {
+  border-color: #e17055;
+}
+.nav-item:nth-child(2) {
+  border-color: #74b9ff;
+}
+.nav-item:nth-child(3) {
+  border-color: #00cec9;
+}
+.nav-item:nth-child(4) {
+  border-color: #fdcb6e;
+}
+.nav-item:nth-child(5) {
+  border-color: #d63031;
+}
+.nav-item:nth-child(6) {
+  border-color: #6c5ce7;
+}
+
+.nav-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Home Page Container */
 .home-container {
   display: flex;
   flex-direction: column;
@@ -21,19 +73,21 @@ body {
   margin-bottom: 2rem;
 }
 
+/* Updated the color of the header text to a light color */
 .home-header h1 {
   font-size: 3rem;
   font-weight: bold;
-  color: #dfe6e9;
+  color: #dfe6e9;  /* light color */
   margin-bottom: 0.5rem;
 }
 
 .home-header p {
   font-size: 1.2rem;
-  color: #b2bec3;
+  color: #b2bec3;  /* light gray color */
   margin: 0;
 }
 
+/* Recipe Boxes */
 .recipe-section {
   display: flex;
   flex-wrap: wrap;
