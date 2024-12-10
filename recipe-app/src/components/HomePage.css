@@ -1,12 +1,19 @@
 /* HomePage.css */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #2d3436;
+  color: white;
+}
+
 .home-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #fefefe;
+  background-color: #2d3436;
   padding: 2rem;
+  min-height: 100vh;
   box-sizing: border-box;
-  font-family: 'Arial', sans-serif;
 }
 
 .home-header {
@@ -17,13 +24,13 @@
 .home-header h1 {
   font-size: 3rem;
   font-weight: bold;
-  color: #2c3e50;
+  color: #dfe6e9;
   margin-bottom: 0.5rem;
 }
 
 .home-header p {
   font-size: 1.2rem;
-  color: #7f8c8d;
+  color: #b2bec3;
   margin: 0;
 }
 
@@ -36,7 +43,7 @@
 }
 
 .recipe-box {
-  background: linear-gradient(135deg, #ffdd59, #ff4757);
+  background: linear-gradient(135deg, #6c5ce7, #74b9ff);
   border-radius: 12px;
   padding: 1rem;
   width: 300px;
@@ -47,38 +54,40 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .recipe-box:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
 }
 
 .recipe-box h3 {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
+  color: white;
 }
 
 .recipe-box p {
   font-size: 1rem;
   margin: 0;
+  color: #dfe6e9;
 }
 
+/* Individual Gradients for Recipe Boxes */
 .recipe-box.breakfast {
-  background: linear-gradient(135deg, #ff9ff3, #feca57);
+  background: linear-gradient(135deg, #e17055, #fdcb6e);
 }
 
 .recipe-box.lunch {
-  background: linear-gradient(135deg, #1dd1a1, #48dbfb);
+  background: linear-gradient(135deg, #00cec9, #81ecec);
 }
 
 .recipe-box.dinner {
-  background: linear-gradient(135deg, #5f27cd, #10ac84);
+  background: linear-gradient(135deg, #0984e3, #6c5ce7);
 }
 
 .recipe-box.snack {
-  background: linear-gradient(135deg, #f368e0, #ff6b6b);
+  background: linear-gradient(135deg, #d63031, #fab1a0);
 }
-
