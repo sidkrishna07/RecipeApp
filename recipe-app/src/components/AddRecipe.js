@@ -25,19 +25,33 @@ const AddRecipe = () => {
     setRecipe((prevRecipe) => ({ ...prevRecipe, [name]: value }));
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setRecipe((prevRecipe) => ({ ...prevRecipe, image: file }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('token'); // Retrieve token from local storage
+      const token = localStorage.getItem('token');
       const config = {
         headers: { Authorization: `Bearer ${token}` }
       };
 
+      const formData = new FormData();
+      formData.append('title', recipe.title);
+      formData.append('category', recipe.category);
+      formData.append('ingredients', recipe.ingredients);
+      formData.append('steps', recipe.steps);
+      if (recipe.image) {
+        formData.append('image', recipe.image);
+      }
+
       if (recipe.id) {
-        await axios.put(`/recipes/${recipe.id}`, recipe, config);
+        await axios.put(`/recipes/${recipe.id}`, formData, config);
         alert('Recipe updated successfully!');
       } else {
-        await axios.post('/recipes', recipe, config);
+        await axios.post('/recipes', formData, config);
         alert('Recipe added successfully!');
       }
       navigate('/my-recipes');
@@ -90,7 +104,14 @@ const AddRecipe = () => {
         </div>
         <div className="form-group">
           <label>Upload Image</label>
-          <input type="file" name="image" onChange={(e) => setRecipe({ ...recipe, image: e.target.files[0] })} />
+          <input type="file" name="image" onChange={handleImageChange} />
+          {recipe.image && (
+            <img
+              src={URL.createObjectURL(recipe.image)}
+              alt="Preview"
+              className="image-preview"
+            />
+          )}
         </div>
         <button type="submit">Submit Recipe</button>
       </form>
