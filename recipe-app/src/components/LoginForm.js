@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginForm.css";
 
-const LoginForm = ({ onLoginSuccess }) => {
+const LoginForm = ({ onLogin }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     username: "",
@@ -26,7 +26,7 @@ const LoginForm = ({ onLoginSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const endpoint = isLogin
-      ? "http://localhost:5001/login"
+      ? "http://localhost:5001/login" // Changed to port 5001
       : "http://localhost:5001/register";
 
     const payload = isLogin
@@ -51,13 +51,13 @@ const LoginForm = ({ onLoginSuccess }) => {
       const data = await response.json();
       if (response.ok) {
         localStorage.setItem("token", data.token);
-        onLoginSuccess(data.token); // Update App state
-        navigate("/");
+        onLogin(data.token); // Callback to update App state
+        navigate("/"); // Redirect to home page
       } else {
         setError(data.message || "An error occurred");
       }
     } catch (err) {
-      setError("Failed to connect to server.");
+      setError("Failed to connect to server. Is the backend running?");
     }
   };
 
