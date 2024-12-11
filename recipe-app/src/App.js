@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import LoginForm from "./components/LoginForm";
 import HomePage from "./components/HomePage";
+import RecipeCategory from "./components/RecipeCategory";
+import MyRecipes from "./components/MyRecipes";
+import RecipeDetails from "./components/RecipeDetails";
 import "./App.css";
 
 function App() {
@@ -17,6 +20,15 @@ function App() {
     setToken(null);
   };
 
+  const sampleRecipe = {
+    id: 1,
+    title: 'Pancakes',
+    category: 'Breakfast',
+    ingredients: ['Flour', 'Eggs', 'Milk'],
+    steps: ['Mix ingredients', 'Cook on skillet', 'Serve hot'],
+    image: 'pancakes.jpg'
+  };
+
   return (
     <Router>
       <Routes>
@@ -28,6 +40,12 @@ function App() {
           path="/login"
           element={!token ? <LoginForm onLogin={handleLogin} /> : <Navigate to="/" />}
         />
+        <Route path="/breakfast" element={<RecipeCategory category="Breakfast" />} />
+        <Route path="/lunch" element={<RecipeCategory category="Lunch" />} />
+        <Route path="/dinner" element={<RecipeCategory category="Dinner" />} />
+        <Route path="/snack" element={<RecipeCategory category="Snack" />} />
+        <Route path="/my-recipes" element={<MyRecipes />} />
+        <Route path="/recipe/:id" element={<RecipeDetails recipe={sampleRecipe} />} />
       </Routes>
     </Router>
   );
