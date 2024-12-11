@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = ({ onSignOut }) => {
@@ -6,9 +7,9 @@ const Navbar = ({ onSignOut }) => {
     <nav className="navbar">
       <div className="navbar-brand">Recipe Sharing App</div>
       <ul className="navbar-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/my-recipes">My Recipes</a></li>
-        <li><a href="/add-recipe">Add Recipe</a></li>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/my-recipes">My Recipes</Link></li>
+        <li><Link to="/add-recipe">Add Recipe</Link></li>
       </ul>
       <button className="logout-btn" onClick={onSignOut}>
         Logout

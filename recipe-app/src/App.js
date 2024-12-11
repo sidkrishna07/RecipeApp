@@ -5,6 +5,7 @@ import HomePage from "./components/HomePage";
 import RecipeCategory from "./components/RecipeCategory";
 import MyRecipes from "./components/MyRecipes";
 import RecipeDetails from "./components/RecipeDetails";
+import AddRecipe from "./components/AddRecipe";
 import "./App.css";
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
         <Route path="/snack" element={<RecipeCategory category="Snack" />} />
         <Route path="/my-recipes" element={<MyRecipes />} />
         <Route path="/recipe/:id" element={<RecipeDetails recipe={sampleRecipe} />} />
+        <Route path="/add-recipe" element={<AddRecipe />} />
       </Routes>
     </Router>
   );

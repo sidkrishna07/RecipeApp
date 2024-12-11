@@ -1,12 +1,19 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './MyRecipes.css';
 
 const MyRecipes = () => {
+  const navigate = useNavigate();
+
   const sampleRecipes = [
     { id: 1, title: 'Waffles', category: 'Breakfast', description: 'A great breakfast treat.', image: 'waffles.jpg' },
     { id: 2, title: 'Pancakes', category: 'Breakfast', description: 'Fluffy and delicious.', image: 'pancakes.jpg' },
     { id: 3, title: 'Hot Chocolate', category: 'Snack', description: 'Warm and cozy.', image: 'hot_chocolate.jpg' },
   ];
+
+  const handleEdit = (recipe) => {
+    navigate('/add-recipe', { state: { recipe } });
+  };
 
   return (
     <div className="my-recipes-container">
@@ -18,7 +25,7 @@ const MyRecipes = () => {
             <h3>{recipe.title}</h3>
             <p>{recipe.description}</p>
             <span className="category-badge">{recipe.category}</span>
-            <button className="edit-btn">Edit</button>
+            <button className="edit-btn" onClick={() => handleEdit(recipe)}>Edit</button>
           </div>
         ))}
       </div>

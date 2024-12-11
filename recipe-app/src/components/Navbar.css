@@ -2,8 +2,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #333;
-  color: #fff;
+  background-color: #282c34;
+  color: #61dafb;
   padding: 0.5rem 2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -11,7 +11,7 @@
 .navbar-brand {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #f5a623;
+  color: #61dafb;
 }
 
 .navbar-links {
@@ -23,14 +23,14 @@
 }
 
 .navbar-links a {
-  color: #fff;
+  color: #61dafb;
   text-decoration: none;
   font-size: 1rem;
   transition: color 0.3s ease;
 }
 
 .navbar-links a:hover {
-  color: #f5a623;
+  color: #21a1f1;
 }
 
 .logout-btn {

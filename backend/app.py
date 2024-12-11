@@ -90,6 +90,7 @@ def recipes():
             return jsonify({"message": "Recipe added successfully!"}), 201
         except Exception as e:
             db.session.rollback()
+            app.logger.error(f"Failed to add recipe: {str(e)}")
             return jsonify({"message": "Failed to add recipe", "error": str(e)}), 500
 
     recipes = Recipe.query.filter_by(user_id=user_id).all()
@@ -100,6 +101,29 @@ def recipes():
         "ingredients": r.ingredients,
         "steps": r.steps
     } for r in recipes]), 200
+
+@app.route('/recipes/<int:recipe_id>', methods=['PUT'])
+@jwt_required()
+def update_recipe(recipe_id):
+    user_id = get_jwt_identity()
+    data = request.get_json()
+
+    recipe = Recipe.query.filter_by(id=recipe_id, user_id=user_id).first()
+    if not recipe:
+        return jsonify({"message": "Recipe not found"}), 404
+
+    recipe.title = data.get('title', recipe.title)
+    recipe.category = data.get('category', recipe.category)
+    recipe.ingredients = data.get('ingredients', recipe.ingredients)
+    recipe.steps = data.get('steps', recipe.steps)
+
+    try:
+        db.session.commit()
+        return jsonify({"message": "Recipe updated successfully!"}), 200
+    except Exception as e:
+        db.session.rollback()
+        app.logger.error(f"Failed to update recipe: {str(e)}")
+        return jsonify({"message": "Failed to update recipe", "error": str(e)}), 500
 
 # Handle root access (optional)
 @app.route('/', methods=['GET'])
