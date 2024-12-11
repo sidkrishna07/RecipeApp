@@ -1,17 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./Navbar.css";
 
-const Navbar = ({ onLogout }) => {
+const Navbar = ({ onSignOut }) => {
   return (
     <nav className="navbar">
-      <span className="navbar-brand"></span>
-      <div className="navbar-links">
-        <Link to="/">Home</Link>
-        <button onClick={onLogout} className="logout-btn">
-          Logout
-        </button>
-      </div>
+      <div className="navbar-brand">Recipe Sharing App</div>
+      <ul className="navbar-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/my-recipes">My Recipes</a></li>
+        <li><a href="/add-recipe">Add Recipe</a></li>
+      </ul>
+      <button className="logout-btn" onClick={onSignOut}>
+        Logout
+      </button>
     </nav>
   );
 };

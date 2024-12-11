@@ -1,146 +1,59 @@
-/* Body */
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background-color: #2d3436;
-  color: white;
-}
-
-/* Navigation Bar */
-.navbar {
-  display: flex;
-  justify-content: flex-start; /* Align items to the left, making them closer */
-  align-items: center;
-  background-color: #2d3436;
-  padding: 1rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  width: 100%; /* Make the navbar fill the screen width */
-}
-
-/* Nav Buttons */
-.nav-item {
-  background: none;
-  border: 3px solid transparent;
-  border-radius: 12px;
-  color: white;
-  font-size: 1rem;
-  padding: 0.6rem 1.2rem;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  margin-right: 0.2rem; /* Even smaller gap between buttons */
-}
-
-/* Add unique borders to buttons for colors */
-.nav-item:nth-child(1) {
-  border-color: #e17055; /* Orange */
-}
-.nav-item:nth-child(2) {
-  border-color: #74b9ff; /* Light Blue */
-}
-.nav-item:nth-child(3) {
-  border-color: #00cec9; /* Teal */
-}
-.nav-item:nth-child(4) {
-  border-color: #fdcb6e; /* Yellow */
-}
-.nav-item:nth-child(5) {
-  border-color: #6c5ce7; /* Purple */
-}
-
-.nav-item:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-/* Home Page Container */
-.home-container {
+.homepage-container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  background-color: #2d3436;
-  padding: 2rem;
-  min-height: 100vh;
-  box-sizing: border-box;
-}
-
-.home-header {
   text-align: center;
-  margin-bottom: 2rem;
+  min-height: 90vh;
+  background-color: #f4f6f9;
 }
 
-/* Updated the color of the header text to a light color */
-.home-header h1 {
-  font-size: 3rem;
-  font-weight: bold;
-  color: #dfe6e9; /* light color */
-  margin-bottom: 0.5rem;
+.homepage-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #333;
 }
 
-.home-header p {
+.homepage-container p {
   font-size: 1.2rem;
-  color: #b2bec3; /* light gray color */
-  margin: 0;
+  margin-bottom: 2rem;
+  color: #666;
 }
 
-/* Recipe Boxes */
-.recipe-section {
+.recipe-cards {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   gap: 1.5rem;
-  margin-top: 2rem;
+  flex-wrap: wrap;
 }
 
-.recipe-box {
-  background: linear-gradient(135deg, #6c5ce7, #74b9ff);
-  border-radius: 12px;
-  padding: 1rem;
-  width: 300px;
-  height: 150px;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.recipe-card {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  width: 200px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.recipe-box:hover {
+.recipe-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }
 
-.recipe-box h3 {
-  font-size: 1.5rem;
+.recipe-card h3 {
   margin-bottom: 0.5rem;
-  color: white;
+  font-size: 1.3rem;
+  color: #333;
 }
 
-.recipe-box p {
-  font-size: 1rem;
-  margin: 0;
-  color: #dfe6e9;
+.recipe-card p {
+  color: #666;
+  font-size: 0.9rem;
 }
 
-/* Individual Gradients for Recipe Boxes */
-.recipe-box.breakfast {
-  background: linear-gradient(135deg, #e17055, #fdcb6e);
-}
-
-.recipe-box.lunch {
-  background: linear-gradient(135deg, #00cec9, #81ecec);
-}
-
-.recipe-box.dinner {
-  background: linear-gradient(135deg, #0984e3, #6c5ce7);
-}
-
-.recipe-box.snack {
-  background: linear-gradient(135deg, #d63031, #fab1a0);
-};
+.breakfast { background-color: #ffe0b2; }
+.lunch { background-color: #b2dfdb; }
+.dinner { background-color: #bbdefb; }
+.snack { background-color: #ffcdd2; }

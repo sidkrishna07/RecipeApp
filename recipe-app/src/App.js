@@ -1,41 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Navbar from "./components/Navbar";
 import LoginForm from "./components/LoginForm";
 import HomePage from "./components/HomePage";
+import "./App.css";
 
 function App() {
-  const [token, setToken] = useState(localStorage.getItem("token") || null);
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
-  // Check token on app load
-  useEffect(() => {
-    if (!token) {
-      localStorage.removeItem("token");
-    }
-  }, [token]);
+  const handleLogin = (newToken) => {
+    localStorage.setItem("token", newToken);
+    setToken(newToken);
+  };
 
-  const handleLogout = () => {
+  const handleSignOut = () => {
     localStorage.removeItem("token");
     setToken(null);
   };
 
   return (
     <Router>
-      {token && <Navbar onLogout={handleLogout} />}
       <Routes>
         <Route
           path="/"
-          element={token ? <HomePage /> : <Navigate replace to="/login" />}
+          element={token ? <HomePage onSignOut={handleSignOut} /> : <Navigate to="/login" />}
         />
         <Route
           path="/login"
-          element={
-            token ? (
-              <Navigate replace to="/" />
-            ) : (
-              <LoginForm onLoginSuccess={(newToken) => setToken(newToken)} />
-            )
-          }
+          element={!token ? <LoginForm onLogin={handleLogin} /> : <Navigate to="/" />}
         />
       </Routes>
     </Router>
