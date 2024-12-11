@@ -105,7 +105,7 @@ const AddRecipe = () => {
         <div className="form-group">
           <label>Upload Image</label>
           <input type="file" name="image" onChange={handleImageChange} />
-          {recipe.image && (
+          {recipe.image instanceof File && (
             <img
               src={URL.createObjectURL(recipe.image)}
               alt="Preview"
