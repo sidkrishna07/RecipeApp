@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 import './RecipeCategory.css';
 import { useNavigate } from 'react-router-dom';
 
-const RecipeCategory = ({ category }) => {
+const RecipeCategory = ({ category, onSignOut }) => {
   const navigate = useNavigate();
 
   const handleViewRecipe = (recipe) => {
@@ -46,7 +46,7 @@ const RecipeCategory = ({ category }) => {
 
   return (
     <>
-      <Navbar />
+      <Navbar onSignOut={onSignOut} />
       <div className={`category-container ${category}`}>
         <h1 className="category-title">{category} Recipes</h1>
         <div className="category-recipes">
