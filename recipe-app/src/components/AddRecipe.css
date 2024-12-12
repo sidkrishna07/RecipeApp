@@ -5,6 +5,8 @@
   background: rgba(255, 255, 255, 0.95);
   border-radius: 15px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  margin-top: 80px;
+  margin-bottom: 2rem;
 }
 
 /* Add a colorful background wrapper */
@@ -12,6 +14,12 @@
   min-height: 100vh;
   padding: 1rem;
   background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .form-group {
@@ -86,4 +94,13 @@ h1 {
   margin-bottom: 2rem;
   font-size: 2.5rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure navbar stays on top */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
 } 
