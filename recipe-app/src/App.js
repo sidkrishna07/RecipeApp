@@ -21,15 +21,6 @@ function App() {
     setToken(null);
   };
 
-  const sampleRecipe = {
-    id: 1,
-    title: 'Pancakes',
-    category: 'Breakfast',
-    ingredients: ['Flour', 'Eggs', 'Milk'],
-    steps: ['Mix ingredients', 'Cook on skillet', 'Serve hot'],
-    image: 'pancakes.jpg'
-  };
-
   return (
     <Router>
       <Routes>
@@ -46,7 +37,7 @@ function App() {
         <Route path="/dinner" element={<RecipeCategory category="Dinner" />} />
         <Route path="/snack" element={<RecipeCategory category="Snack" />} />
         <Route path="/my-recipes" element={<MyRecipes />} />
-        <Route path="/recipe/:id" element={<RecipeDetails recipe={sampleRecipe} />} />
+        <Route path="/recipe/:id" element={<RecipeDetails />} />
         <Route path="/add-recipe" element={<AddRecipe />} />
       </Routes>
     </Router>
