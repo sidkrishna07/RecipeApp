@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
@@ -7,6 +7,22 @@ from datetime import timedelta
 
 # Initialize the Flask app
 app = Flask(__name__)
+
+# Configure CORS to allow requests from your React app
+CORS(app, resources={
+    r"/*": {  # Allow all routes
+        "origins": [
+            "http://localhost:3000",  # React dev server
+            "http://localhost:3001",
+            "http://localhost:3002",
+            "http://localhost:3003",
+            "http://localhost:5001"    # Add this for the login endpoint
+        ],
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"],
+        "supports_credentials": True
+    }
+})
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///recipes.db'
 app.config['JWT_SECRET_KEY'] = 'your_jwt_secret_key'  # Replace with a secure key
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -54,18 +70,35 @@ def register():
         db.session.rollback()
         return jsonify({"message": "Registration failed", "error": str(e)}), 500
 
-@app.route('/login', methods=['POST'])
+@app.route('/api/login', methods=['POST', 'OPTIONS'])
 def login():
-    data = request.get_json()
-    if not data or 'username' not in data or 'password' not in data:
-        return jsonify({"message": "Invalid input"}), 400
+    if request.method == 'OPTIONS':
+        # Handle preflight request
+        response = make_response()
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+        response.headers.add('Access-Control-Allow-Methods', 'POST')
+        return response
 
-    user = User.query.filter_by(username=data['username']).first()
-    if user and bcrypt.check_password_hash(user.password, data['password']):
-        token = create_access_token(identity=user.id, expires_delta=timedelta(hours=1))
-        return jsonify({"message": "Login successful!", "token": token}), 200
-
-    return jsonify({"message": "Invalid credentials"}), 401
+    try:
+        data = request.get_json()
+        print("Login attempt with data:", data)  # Debug log
+        
+        if not data or 'username' not in data or 'password' not in data:
+            return jsonify({"message": "Missing username or password"}), 400
+            
+        user = User.query.filter_by(username=data['username']).first()
+        if user and bcrypt.check_password_hash(user.password, data['password']):
+            token = create_access_token(identity=user.id)
+            return jsonify({
+                "message": "Login successful",
+                "token": token,
+                "username": user.username
+            }), 200
+        return jsonify({"message": "Invalid credentials"}), 401
+    except Exception as e:
+        print("Login error:", str(e))
+        return jsonify({"message": "Login failed", "error": str(e)}), 500
 
 @app.route('/recipes', methods=['GET', 'POST'])
 @jwt_required()
@@ -101,6 +134,44 @@ def recipes():
         "ingredients": r.ingredients,
         "steps": r.steps
     } for r in recipes]), 200
+
+@app.route('/api/recipes', methods=['POST'])
+@jwt_required()
+def create_recipe():
+    try:
+        current_user_id = get_jwt_identity()
+        data = request.get_json()
+        print("Received recipe data:", data)  # Debug log
+        
+        # Validate required fields
+        required_fields = ['title', 'category', 'ingredients', 'steps']
+        if not all(field in data for field in required_fields):
+            return jsonify({"message": "Missing required fields"}), 400
+
+        # Create new recipe
+        new_recipe = Recipe(
+            title=data['title'],
+            category=data['category'],
+            ingredients=data['ingredients'],
+            steps=data['steps'],
+            user_id=current_user_id
+        )
+        
+        db.session.add(new_recipe)
+        db.session.commit()
+        
+        return jsonify({
+            "message": "Recipe created successfully",
+            "recipe": {
+                "id": new_recipe.id,
+                "title": new_recipe.title
+            }
+        }), 201
+
+    except Exception as e:
+        print("Error creating recipe:", str(e))  # Debug log
+        db.session.rollback()
+        return jsonify({"message": "Failed to create recipe", "error": str(e)}), 500
 
 @app.route('/recipes/<int:recipe_id>', methods=['PUT'])
 @jwt_required()

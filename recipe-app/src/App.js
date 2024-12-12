@@ -37,8 +37,18 @@ function App() {
         <Route path="/dinner" element={<RecipeCategory category="Dinner" />} />
         <Route path="/snack" element={<RecipeCategory category="Snack" />} />
         <Route path="/my-recipes" element={<MyRecipes />} />
+<<<<<<< Updated upstream
         <Route path="/recipe/:id" element={<RecipeDetails />} />
         <Route path="/add-recipe" element={<AddRecipe />} />
+=======
+        <Route path="/recipe/:id" element={<RecipeDetails recipe={sampleRecipe} />} />
+        <Route 
+          path="/add-recipe" 
+          element={
+            token ? <AddRecipe token={token} /> : <Navigate to="/login" />
+          } 
+        />
+>>>>>>> Stashed changes
       </Routes>
     </Router>
   );
