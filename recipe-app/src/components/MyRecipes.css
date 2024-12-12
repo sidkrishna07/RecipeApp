@@ -1,6 +1,6 @@
 .my-recipes-container {
   padding: 2rem;
-  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
 }
 
@@ -99,17 +99,17 @@
 
 /* Category-specific card styling */
 .recipe-card.Breakfast {
-  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.9), rgba(246, 211, 101, 0.1));
+  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.9), rgba(102, 126, 234, 0.1));
 }
 
 .recipe-card.Lunch {
-  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.9), rgba(132, 250, 176, 0.1));
+  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.9), rgba(118, 75, 162, 0.1));
 }
 
 .recipe-card.Dinner {
-  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.9), rgba(168, 237, 234, 0.1));
+  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.9), rgba(145, 85, 179, 0.1));
 }
 
 .recipe-card.Snack {
-  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.9), rgba(251, 194, 235, 0.1));
+  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.9), rgba(89, 97, 225, 0.1));
 } 

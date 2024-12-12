@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './AddRecipe.css';
+import Navbar from './Navbar';
 
 const AddRecipe = () => {
   const location = useLocation();
@@ -62,60 +63,65 @@ const AddRecipe = () => {
   };
 
   return (
-    <div className="add-recipe-container">
-      <h1>{recipe.title ? 'Edit Recipe' : 'Add Recipe'}</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Recipe Name</label>
-          <input
-            type="text"
-            name="title"
-            value={recipe.title}
-            onChange={handleChange}
-            placeholder="Enter recipe name"
-          />
+    <>
+      <Navbar />
+      <div className="add-recipe-wrapper">
+        <div className="add-recipe-container">
+          <h1>{recipe.id ? 'Edit Recipe' : 'Add New Recipe'}</h1>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>Recipe Name</label>
+              <input
+                type="text"
+                name="title"
+                value={recipe.title}
+                onChange={handleChange}
+                placeholder="Enter recipe name"
+              />
+            </div>
+            <div className="form-group">
+              <label>Category</label>
+              <select name="category" value={recipe.category} onChange={handleChange}>
+                <option>Breakfast</option>
+                <option>Lunch</option>
+                <option>Dinner</option>
+                <option>Snack</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label>Ingredients</label>
+              <textarea
+                name="ingredients"
+                value={recipe.ingredients}
+                onChange={handleChange}
+                placeholder="List ingredients"
+              ></textarea>
+            </div>
+            <div className="form-group">
+              <label>Steps</label>
+              <textarea
+                name="steps"
+                value={recipe.steps}
+                onChange={handleChange}
+                placeholder="Step-by-step instructions"
+              ></textarea>
+            </div>
+            <div className="form-group">
+              <label>Upload Image</label>
+              <input type="file" name="image" onChange={handleImageChange} />
+              {recipe.image instanceof File && (
+                <img
+                  src={URL.createObjectURL(recipe.image)}
+                  alt="Preview"
+                  className="image-preview"
+                />
+              )}
+            </div>
+            <button type="submit">Submit Recipe</button>
+          </form>
         </div>
-        <div className="form-group">
-          <label>Category</label>
-          <select name="category" value={recipe.category} onChange={handleChange}>
-            <option>Breakfast</option>
-            <option>Lunch</option>
-            <option>Dinner</option>
-            <option>Snack</option>
-          </select>
-        </div>
-        <div className="form-group">
-          <label>Ingredients</label>
-          <textarea
-            name="ingredients"
-            value={recipe.ingredients}
-            onChange={handleChange}
-            placeholder="List ingredients"
-          ></textarea>
-        </div>
-        <div className="form-group">
-          <label>Steps</label>
-          <textarea
-            name="steps"
-            value={recipe.steps}
-            onChange={handleChange}
-            placeholder="Step-by-step instructions"
-          ></textarea>
-        </div>
-        <div className="form-group">
-          <label>Upload Image</label>
-          <input type="file" name="image" onChange={handleImageChange} />
-          {recipe.image instanceof File && (
-            <img
-              src={URL.createObjectURL(recipe.image)}
-              alt="Preview"
-              className="image-preview"
-            />
-          )}
-        </div>
-        <button type="submit">Submit Recipe</button>
-      </form>
-    </div>
+      </div>
+    </>
   );
 };
 
