@@ -20,15 +20,19 @@ const MyRecipes = () => {
     <>
       <Navbar />
       <div className="my-recipes-container">
-        <h2>My Recipes</h2>
-        <div className="recipe-cards">
+        <h1 className="my-recipes-title">My Recipes</h1>
+        <div className="recipe-grid">
           {sampleRecipes.map((recipe) => (
-            <div className="recipe-card" key={recipe.id}>
-              <img src={recipe.image} alt={recipe.title} className="recipe-image" />
-              <h3>{recipe.title}</h3>
-              <p>{recipe.description}</p>
-              <span className="category-badge">{recipe.category}</span>
-              <button className="edit-btn" onClick={() => handleEdit(recipe)}>Edit</button>
+            <div className={`recipe-card ${recipe.category}`} key={recipe.id}>
+              <div className="recipe-image-container">
+                <img src={recipe.image} alt={recipe.title} className="recipe-image" />
+                <span className="category-badge">{recipe.category}</span>
+              </div>
+              <div className="recipe-content">
+                <h3>{recipe.title}</h3>
+                <p>{recipe.description}</p>
+                <button className="edit-btn" onClick={() => handleEdit(recipe)}>Edit Recipe</button>
+              </div>
             </div>
           ))}
         </div>
