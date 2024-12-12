@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import './MyRecipes.css';
 
-const MyRecipes = () => {
+const MyRecipes = ({ onSignOut }) => {
   const navigate = useNavigate();
 
   const sampleRecipes = [
@@ -18,7 +18,7 @@ const MyRecipes = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar onSignOut={onSignOut} />
       <div className="my-recipes-container">
         <h1 className="my-recipes-title">My Recipes</h1>
         <div className="recipe-grid">

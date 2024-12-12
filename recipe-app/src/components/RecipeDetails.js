@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './RecipeDetails.css';
 
-const RecipeDetails = () => {
+const RecipeDetails = ({ onSignOut }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const recipe = location.state?.recipe;
@@ -11,7 +11,7 @@ const RecipeDetails = () => {
   if (!recipe) {
     return (
       <>
-        <Navbar />
+        <Navbar onSignOut={onSignOut} />
         <div className="recipe-details-wrapper">
           <div className="recipe-details-container">
             <h1>Recipe not found</h1>
@@ -26,7 +26,7 @@ const RecipeDetails = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar onSignOut={onSignOut} />
       <div className="recipe-details-wrapper">
         <div className="recipe-details-container">
           <div className="recipe-header">
